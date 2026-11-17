@@ -1,0 +1,685 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>せきせんせいの算数道場</title>
+<meta name="description" content="小6算数の習熟度チェック。単元ごとの8問と腕だめしで、苦手を見つけて練習できます。">
+<meta name="theme-color" content="#7A5533">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="算数道場">
+<link rel="preload" href="fonts/BIZUDPGothic-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<style>@font-face{font-family:"BIZ UDPGothic";src:url(fonts/BIZUDPGothic-Regular.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"BIZ UDPGothic";src:url(fonts/BIZUDPGothic-Bold.woff2) format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:"Yuji Syuku";src:url(fonts/YujiSyuku-Regular.woff2) format("woff2");font-weight:400;font-display:swap}</style>
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<style>
+/* 算額（神社に奉納された数学の絵馬）を見出しに、和紙地に藍と朱で組む。1カラム、スマホ優先 */
+:root{
+  --bg:#F3EFE6; --surface:#FFFDF8; --ink:#1B2230; --sub:#5A6272; --line:#D6CDBB;
+  --blue:#1E4F93; --blue-soft:#DDE7F4; --red:#BE2F2A; --red-soft:#F7E0DD;
+  --gray:#8E95A0; --wood:#E8D7B4; --wood-edge:#7A5533; --wood-ink:#3A2716;
+  --skin:#FBE4D0; --hair:#2A2420; --kimono:#24426F; --cheek:#F2A9A0;
+  --f-body:"BIZ UDPGothic","Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic UI","Meiryo",sans-serif;
+  --f-brush:"Yuji Syuku","Hiragino Mincho ProN","Yu Mincho",serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12161D; --surface:#1A2029; --ink:#E7EBF0; --sub:#A1AAB6; --line:#2E3744;
+    --blue:#7CA9E8; --blue-soft:#1C2F4C; --red:#F07C72; --red-soft:#3E2423;
+    --gray:#7F8894; --wood:#3A2E22; --wood-edge:#A07A52; --wood-ink:#F0E2C8;
+    --skin:#F6DCC6; --hair:#2A2420; --kimono:#3A5E96; --cheek:#E89B92;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12161D; --surface:#1A2029; --ink:#E7EBF0; --sub:#A1AAB6; --line:#2E3744;
+  --blue:#7CA9E8; --blue-soft:#1C2F4C; --red:#F07C72; --red-soft:#3E2423;
+  --gray:#7F8894; --wood:#3A2E22; --wood-edge:#A07A52; --wood-ink:#F0E2C8;
+  --skin:#F6DCC6; --hair:#2A2420; --kimono:#3A5E96; --cheek:#E89B92;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{
+  margin:0; background:var(--bg); color:var(--ink); font-family:var(--f-body);
+  font-size:17px; line-height:1.7; -webkit-text-size-adjust:100%;
+}
+main{max-width:560px; margin:0 auto; padding-block:0 40px;
+  padding-left:max(16px, env(safe-area-inset-left,0px)); padding-right:max(16px, env(safe-area-inset-right,0px))}
+button{font:inherit; color:inherit}
+button:focus-visible{outline:3px solid var(--blue); outline-offset:2px}
+
+/* ===== 算額ヘッダー ===== */
+.gaku{margin:18px 0 14px; position:relative}
+.roof{display:block; width:100%; height:22px}
+.board{
+  background:var(--wood); border:3px solid var(--wood-edge); border-top:none; border-radius:0 0 6px 6px;
+  padding:14px 14px 16px; color:var(--wood-ink);
+  box-shadow:inset 0 0 0 4px var(--wood), inset 0 0 0 5px color-mix(in srgb, var(--wood-edge) 45%, transparent);
+}
+.board h1{font-family:var(--f-brush); font-weight:400; font-size:27px; line-height:1.25; margin:0; text-wrap:balance; letter-spacing:.04em}
+.board .kicker{font-size:12px; letter-spacing:.2em; margin:0 0 2px; opacity:.8}
+.board .row{display:flex; gap:12px; align-items:flex-end; margin-top:10px}
+.board .row .seki{flex:none}
+.bubble{
+  position:relative; flex:1; min-width:0; background:var(--surface); color:var(--ink);
+  border:1.5px solid var(--wood-edge); border-radius:14px; padding:10px 12px; font-size:15px; line-height:1.6; margin-bottom:14px;
+}
+.bubble::before{content:""; position:absolute; left:-9px; bottom:18px; width:14px; height:14px; background:var(--surface);
+  border-left:1.5px solid var(--wood-edge); border-bottom:1.5px solid var(--wood-edge); transform:rotate(45deg)}
+.bubble b{color:var(--red)}
+.rank{display:flex; gap:16px; align-items:baseline; margin-top:6px; flex-wrap:wrap}
+.rank .dan{font-family:var(--f-brush); font-size:22px; color:var(--red)}
+.rank span{font-size:14px}
+.rank b{font-size:22px}
+
+/* ===== 腕だめし ===== */
+.trial{
+  width:100%; display:flex; gap:12px; align-items:center; text-align:left; cursor:pointer;
+  background:var(--ink); color:var(--surface); border:none; border-radius:14px; padding:14px 16px; margin:0 0 18px;
+}
+.trial .ic{flex:none; width:40px; height:40px; border-radius:50%; border:2px solid var(--surface); display:grid; place-items:center; font-weight:700}
+.trial h2{margin:0; font-size:17px}
+.trial p{margin:0; font-size:13px; opacity:.85}
+
+.sec{font-size:13px; color:var(--sub); letter-spacing:.12em; margin:0 0 8px}
+.units{display:flex; flex-direction:column; gap:10px; margin:0; padding:0; list-style:none}
+.unit{
+  width:100%; display:flex; gap:14px; align-items:center; text-align:left;
+  background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:12px 14px; cursor:pointer;
+}
+.unit:active{transform:scale(.99)}
+.unit > div{min-width:0}
+.unit h3{font-size:17px; margin:0; line-height:1.4}
+.unit .no{color:var(--sub); font-weight:400; font-size:14px; margin-right:4px}
+.unit .sub{font-size:13px; color:var(--sub); line-height:1.5}
+.unit .meta{font-size:13px; margin-top:2px; color:var(--sub)}
+.unit .meta .weak{color:var(--red); font-weight:700}
+
+.legend{margin:22px 0 0; padding:14px; border:1px dashed var(--line); border-radius:12px; font-size:14px; color:var(--sub)}
+.legend .row{display:flex; gap:14px; align-items:center; flex-wrap:wrap}
+.legend .row div{display:flex; align-items:center; gap:6px}
+.foot{margin-top:18px; font-size:13px; color:var(--sub); display:flex; justify-content:space-between; gap:12px; align-items:center; flex-wrap:wrap}
+.linkbtn{background:none; border:none; color:var(--sub); text-decoration:underline; padding:4px; cursor:pointer; font-size:13px}
+.confirm{margin-top:10px; padding:12px; border:1.5px solid var(--red); border-radius:12px; background:var(--red-soft); font-size:15px}
+.confirm .btns{display:flex; gap:8px; margin-top:8px}
+.confirm button{flex:1; padding:10px; border-radius:10px; border:1px solid var(--line); background:var(--surface); cursor:pointer}
+.confirm button.danger{background:var(--red); color:var(--surface); border-color:var(--red); font-weight:700}
+
+.stamp{flex:none; display:block}
+.stamp text{font-family:var(--f-body); font-weight:700}
+
+/* ===== 問題 ===== */
+.qtop{display:flex; justify-content:space-between; align-items:center; padding:16px 0 10px}
+.back{background:none; border:none; color:var(--sub); padding:6px 0; cursor:pointer; font-size:15px}
+.count{font-size:15px; color:var(--sub); font-variant-numeric:tabular-nums}
+.bar{height:6px; background:var(--line); border-radius:3px; overflow:hidden; margin-bottom:18px}
+.bar i{display:block; height:100%; background:var(--blue); transition:width .25s}
+.unitname{font-size:14px; color:var(--sub); margin:0 0 6px}
+.question{font-size:20px; line-height:1.75; font-weight:700; margin:0 0 18px}
+.choices{display:flex; flex-direction:column; gap:10px}
+.choice{
+  width:100%; text-align:left; padding:13px 16px; border-radius:12px;
+  border:2px solid var(--line); background:var(--surface); cursor:pointer; font-size:18px; line-height:1.6;
+  display:flex; gap:12px; align-items:center;
+}
+.choice > span:last-child{min-width:0}
+.choice .k{flex:none; width:26px; height:26px; border-radius:50%; border:1.5px solid var(--sub); display:grid; place-items:center; font-size:14px; color:var(--sub)}
+.choice.dk{border-style:dashed; color:var(--sub); margin-top:4px; font-size:17px}
+.choice.dk .k{border-style:dashed}
+.choice:disabled{cursor:default}
+.choice.correct{border-color:var(--blue); background:var(--blue-soft)}
+.choice.correct .k{background:var(--blue); border-color:var(--blue); color:var(--surface)}
+.choice.wrong{border-color:var(--red); background:var(--red-soft)}
+.choice.wrong .k{background:var(--red); border-color:var(--red); color:var(--surface)}
+.choice.picked-dk{border-color:var(--gray); background:var(--bg)}
+.choice.faded{opacity:.5}
+
+.fbwrap{display:flex; gap:10px; align-items:flex-start; margin-top:16px}
+.fbwrap .seki{flex:none; margin-top:4px}
+.feedback{flex:1; min-width:0; padding:14px 16px; border-radius:12px; background:var(--surface); border:1px solid var(--line); border-left:6px solid var(--blue)}
+.feedback.ng{border-left-color:var(--red)}
+.feedback.dk{border-left-color:var(--gray)}
+.feedback .say{font-size:14px; color:var(--sub); margin:0 0 2px}
+.feedback h3{margin:0 0 6px; font-size:18px; line-height:1.6}
+.feedback.ok h3{color:var(--blue)}
+.feedback.ng h3{color:var(--red)}
+.feedback p.e{margin:0; font-size:16px; line-height:1.8}
+.primary{
+  display:block; width:100%; margin-top:16px; padding:15px; border-radius:12px; border:none;
+  background:var(--ink); color:var(--surface); font-weight:700; font-size:17px; cursor:pointer;
+}
+.secondary{
+  display:block; width:100%; margin-top:10px; padding:14px; border-radius:12px;
+  border:1.5px solid var(--line); background:var(--surface); font-size:16px; cursor:pointer;
+}
+.secondary.redline{border-color:var(--red); color:var(--red); font-weight:700}
+.quitbox{margin:0 0 14px}
+
+/* 分数 */
+.fr{display:inline-flex; flex-direction:column; vertical-align:middle; text-align:center; font-size:.82em; line-height:1.15; margin:0 .12em}
+.fr > span:first-child{border-bottom:1.5px solid currentColor; padding:0 .2em}
+.fr > span{padding:0 .2em}
+
+/* ===== 結果 ===== */
+.result{text-align:center; padding-top:22px}
+.result .score{font-size:56px; font-weight:700; line-height:1.1; margin:12px 0 4px; font-variant-numeric:tabular-nums}
+.result .score small{font-size:24px; color:var(--sub)}
+.breakdown{display:flex; justify-content:center; gap:16px; font-size:15px; margin:6px 0 16px; flex-wrap:wrap}
+.breakdown .o{color:var(--blue)} .breakdown .x{color:var(--red)} .breakdown .d{color:var(--sub)}
+.talk{display:flex; gap:10px; align-items:flex-start; text-align:left; margin:0 0 6px}
+.talk .seki{flex:none}
+.msgs{flex:1; min-width:0; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:12px 14px}
+.msgs p{margin:0 0 8px; font-size:16px}
+.msgs p:last-child{margin-bottom:0}
+.trialmap{list-style:none; margin:0 0 12px; padding:0; text-align:left; background:var(--surface); border:1px solid var(--line); border-radius:12px}
+.trialmap li{display:flex; gap:10px; align-items:center; padding:8px 14px; border-top:1px solid var(--line); font-size:15px}
+.trialmap li:first-child{border-top:none}
+.trialmap .mk{flex:none; width:24px; text-align:center; font-weight:700}
+.trialmap .mk.o{color:var(--blue)} .trialmap .mk.x{color:var(--red)} .trialmap .mk.d{color:var(--gray)}
+.trialmap .nm{flex:1; min-width:0}
+.trialmap button{flex:none; font-size:13px; padding:4px 10px; border-radius:999px; border:1px solid var(--red); color:var(--red); background:none; cursor:pointer}
+.press{animation:press .55s cubic-bezier(.2,.9,.3,1.2) both}
+@keyframes press{0%{transform:scale(1.6) rotate(-14deg);opacity:0}60%{opacity:1}100%{transform:scale(1) rotate(-6deg);opacity:1}}
+.tilt{transform:rotate(-6deg)}
+.newbadge{display:inline-block; margin-top:8px; font-size:14px; font-weight:700; color:var(--red)}
+.history{display:flex; gap:6px; justify-content:center; align-items:flex-end; height:52px; margin:12px 0 4px}
+.history i{width:14px; background:var(--blue-soft); border-radius:3px 3px 0 0; border:1px solid var(--blue)}
+.history i.last{background:var(--blue)}
+.hcap{font-size:13px; color:var(--sub); margin-bottom:14px}
+.hop{animation:hop .5s ease-out}
+@keyframes hop{0%{transform:translateY(0)}35%{transform:translateY(-8px)}70%{transform:translateY(0)}85%{transform:translateY(-2px)}100%{transform:translateY(0)}}
+@media (prefers-reduced-motion: reduce){ .press{animation:none; transform:rotate(-6deg)} .bar i{transition:none} .hop{animation:none} }
+
+/* タブレット（横幅の広い画面）では、少し広く・大きく表示 */
+@media (min-width:900px){main{max-width:720px} body{font-size:19px} .question{font-size:23px} .choice{font-size:20px;padding:16px 18px}}</style>
+</head>
+<body>
+<main id="app"></main>
+<script>
+// ===== 問題データ（小6算数・円周率は3.14） =====
+// c[0] が正解（表示時に並べかえ）。{a/b} は分数として表示。
+const UNITS = [
+  { id:"taisho", stamp:"対称", title:"対称な図形", sub:"線対称・点対称・対称の軸", qs:[
+    {q:"1本の直線を折り目にして折ると、両側がぴったり重なる図形を何という？", c:["線対称な図形","点対称な図形","合同な図形"], e:"折り目の直線を「対称の軸」といいます。1つの点のまわりに180°回すと重なる図形は点対称な図形です。"},
+    {q:"点対称な図形は、対称の中心のまわりに何度回すと、もとの形にぴったり重なる？", c:["180°","90°","360°"], e:"半回転（180°）で重なるのが点対称。360°ならどんな図形でも重なってしまいます。"},
+    {q:"正方形の対称の軸は何本？", c:["4本","2本","1本"], e:"対角線が2本、向かい合う辺の真ん中どうしを結ぶ線が2本で、合わせて4本です。"},
+    {q:"線対称でもあり、点対称でもある図形は？", c:["長方形","正三角形","平行四辺形"], e:"正三角形は線対称だけ（軸3本）。平行四辺形は点対称だけ。長方形は軸2本で、点対称でもあります。"},
+    {q:"正五角形について正しいのは？", c:["線対称だが、点対称ではない","点対称だが、線対称ではない","線対称でも点対称でもある"], e:"正五角形の対称の軸は5本。頂点の数が奇数の正多角形は、点対称になりません。"},
+    {q:"線対称な図形で、対応する2つの点を結ぶ直線と対称の軸は、どう交わる？", c:["垂直に交わる","平行になる","45°で交わる"], e:"垂直に交わり、軸から対応する2点までの長さは等しくなります。作図のときに使う大事な性質です。"},
+    {q:"点対称な図形で、対応する2つの点を結ぶ直線は、必ずどこを通る？", c:["対称の中心","対称の軸","図形の頂点"], e:"対応する点を2組結ぶと、交わった点が対称の中心です。中心から対応する点までの長さは等しくなります。"},
+    {q:"正六角形の対称の軸は何本？", c:["6本","3本","12本"], e:"正多角形の対称の軸の数は、辺の数と同じです。正六角形は頂点が偶数なので、点対称でもあります。"}
+  ]},
+  { id:"moji", stamp:"文字", title:"文字と式", sub:"x や y を使った式・x の求め方", qs:[
+    {q:"1個 x 円のりんごを5個買ったときの代金を表す式は？", c:["x×5","x＋5","x÷5"], e:"（1個のねだん）×（個数）＝代金。数のかわりに x を入れて考えます。"},
+    {q:"1本120円のペンを x 本と、200円のノートを1冊買ったときの代金は？", c:["120×x＋200","120＋x×200","(120＋200)×x"], e:"ペン代が 120×x、それにノート代200円をたします。"},
+    {q:"x×4＝36 のとき、x の値は？", c:["9","32","144"], e:"かけ算の答えから x を求めるには、わり算を使います。x＝36÷4＝9"},
+    {q:"x＋18＝50 のとき、x の値は？", c:["32","68","30"], e:"たし算の答えから x を求めるには、ひき算を使います。x＝50−18＝32"},
+    {q:"底辺 x cm、高さ6cmの三角形の面積が24cm²のとき、x の値は？", c:["8","4","18"], e:"x×6÷2＝24 → x×6＝48 → x＝8。「÷2」をわすれると4になってしまいます。"},
+    {q:"「x×3＋5」で表せるのはどれ？", c:["1個 x 円のおかし3個と、5円のふくろ1まいの代金","1個 x 円のおかし5個と、3円のふくろ1まいの代金","1個 x 円のおかし3個を買って、5円のおつりをもらった"], e:"x×3 がおかし3個分、＋5 がふくろ代です。おつりなら「−」になります。"},
+    {q:"縦 x cm、横7cmの長方形の面積を y cm²とします。x と y の関係を表す式は？", c:["x×7＝y","x＋7＝y","x×2＋7×2＝y"], e:"長方形の面積は 縦×横。x×2＋7×2 はまわりの長さの式です。"},
+    {q:"1冊 x 円のノートを4冊買い、1000円出したときのおつりは？", c:["1000−x×4","x×4−1000","1000−x＋4"], e:"おつり＝出したお金−代金。代金は x×4 です。"}
+  ]},
+  { id:"bunkake", stamp:"分×", title:"分数のかけ算", sub:"分数×整数・分数×分数", qs:[
+    {q:"{2/7}×3 ＝ ？", c:["{6/7}","{6/21}","{2/21}"], e:"分数×整数は、分母はそのままで、分子に整数をかけます。"},
+    {q:"{3/4}×{2/5} ＝ ？", c:["{3/10}","{5/9}","{15/8}"], e:"分母どうし・分子どうしをかけます。3×2／4×5＝{6/20}＝{3/10}（約分をわすれずに）"},
+    {q:"{5/6}×{9/10} ＝ ？", c:["{3/4}","{7/8}","{25/27}"], e:"途中で約分すると楽です。5と10、6と9を約分して、1×3／2×2＝{3/4}"},
+    {q:"1{1/2}×{2/3} ＝ ？", c:["1","{1/3}","1{1/3}"], e:"帯分数は仮分数に直してから計算します。{3/2}×{2/3}＝1"},
+    {q:"1mの重さが{4/5}kgの棒があります。この棒{3/4}mの重さは？", c:["{3/5}kg","{16/15}kg","{7/9}kg"], e:"1mの重さ×長さ＝重さ。{4/5}×{3/4}＝{12/20}＝{3/5}（kg）"},
+    {q:"縦{2/3}m、横{9/10}mの長方形の面積は？", c:["{3/5}m²","{20/27}m²","{3/10}m²"], e:"{2/3}×{9/10}＝{18/30}＝{3/5}（m²）。分数でも、面積は縦×横です。"},
+    {q:"計算の答えが 6 より小さくなるのはどれ？", c:["6×{4/5}","6×{5/4}","6×1"], e:"1より小さい数をかけると、答えはもとの数より小さくなります。{4/5}は1より小さい数です。"},
+    {q:"{1/4}時間は何分？", c:["15分","25分","4分"], e:"1時間＝60分なので、60×{1/4}＝15（分）"}
+  ]},
+  { id:"bunwari", stamp:"分÷", title:"分数のわり算", sub:"逆数・分数÷分数", qs:[
+    {q:"{4/5}÷2 ＝ ？", c:["{2/5}","{8/5}","{4/7}"], e:"分数÷整数は、分子はそのままで分母に整数をかけます。{4/10}＝{2/5}"},
+    {q:"{2/3}の逆数は？", c:["{3/2}","{1/3}","{6/9}"], e:"逆数は、分母と分子を入れかえた数。かけると1になる数です。{2/3}×{3/2}＝1"},
+    {q:"0.4の逆数は？", c:["{5/2}","4","{2/5}"], e:"0.4＝{2/5}なので、逆数は{5/2}（＝2.5）です。"},
+    {q:"分数でわる計算は、どのようにする？", c:["わる数の逆数をかける","わられる数の逆数をかける","分母と分子をたす"], e:"÷{b/a} は ×{a/b} に直せます。逆数にするのは「わる数」（÷の後ろの数）です。"},
+    {q:"{3/4}÷{2/5} ＝ ？", c:["{15/8}","{3/10}","{8/15}"], e:"{3/4}×{5/2}＝{15/8}（＝1{7/8}）。{3/10}はかけ算をしてしまった答えです。"},
+    {q:"{5/8}Lのペンキで{3/4}m²のかべがぬれます。1Lでは何m²ぬれる？", c:["{6/5}m²","{15/32}m²","{5/6}m²"], e:"1Lあたり＝面積÷量。{3/4}÷{5/8}＝{3/4}×{8/5}＝{24/20}＝{6/5}（m²）"},
+    {q:"計算の答えが 8 より大きくなるのはどれ？", c:["8÷{2/3}","8÷{3/2}","8÷1"], e:"1より小さい数でわると、答えはわられる数より大きくなります。8÷{2/3}＝12"},
+    {q:"{9/10}÷{3/5}÷{3/4} ＝ ？", c:["2","{81/200}","{1/2}"], e:"わる数を全部逆数にして、1つのかけ算にします。{9/10}×{5/3}×{4/3}＝2"}
+  ]},
+  { id:"hi", stamp:"比", title:"比", sub:"比の値・簡単な比・比の利用", qs:[
+    {q:"3：5 の比の値は？", c:["{3/5}","{5/3}","8"], e:"a：b の比の値は a÷b＝{a/b}。3÷5＝{3/5}"},
+    {q:"12：18 を、いちばん簡単な整数の比にすると？", c:["2：3","3：2","4：6"], e:"両方を最大公約数6でわります。4：6も等しい比ですが、まだ2でわれます。"},
+    {q:"1.2：0.8 を、いちばん簡単な整数の比にすると？", c:["3：2","12：8","2：3"], e:"まず10倍して 12：8、それを4でわって 3：2 です。"},
+    {q:"{2/3}：{1/2} を、いちばん簡単な整数の比にすると？", c:["4：3","2：1","3：4"], e:"分母の最小公倍数6を両方にかけます。{2/3}×6＝4、{1/2}×6＝3"},
+    {q:"3：4 ＝ x：20 のとき、x の値は？", c:["15","19","12"], e:"4×5＝20なので、3も5倍します。x＝3×5＝15"},
+    {q:"縦と横の長さの比が 2：5 の長方形。横が35cmのとき、縦は？", c:["14cm","7cm","28cm"], e:"5にあたるのが35cmなので、1にあたるのは7cm。縦は 7×2＝14（cm）"},
+    {q:"赤玉と白玉が合わせて60個あり、個数の比は 1：2 です。白玉は何個？", c:["40個","30個","20個"], e:"全体を 1＋2＝3 とみます。白玉は全体の{2/3}なので 60×{2/3}＝40（個）"},
+    {q:"2400円を、姉と妹で 5：3 に分けます。姉は何円？", c:["1500円","900円","1200円"], e:"全体は 5＋3＝8。1にあたる額は 2400÷8＝300円。姉は 300×5＝1500（円）"}
+  ]},
+  { id:"kakudai", stamp:"縮図", title:"拡大図と縮図", sub:"倍率・縮尺・実際の長さ", qs:[
+    {q:"形を変えずに、すべての辺の長さを2倍にした図を何という？", c:["2倍の拡大図","{1/2}の縮図","合同な図形"], e:"小さくしたものは縮図。合同な図形は、形も大きさも同じ図形です。"},
+    {q:"拡大図や縮図で、対応する角の大きさはどうなる？", c:["もとの図と等しい","倍率と同じだけ大きくなる","小さくなる"], e:"辺の長さは同じ割合でのび縮みしますが、角の大きさは変わりません。"},
+    {q:"辺の長さが3cm、4cm、5cmの三角形の2倍の拡大図。いちばん長い辺は？", c:["10cm","7cm","25cm"], e:"いちばん長い辺5cmを2倍して10cm。7cmは「＋2」してしまった答えです。"},
+    {q:"縮尺{1/25000}の地図で4cmの長さは、実際には何km？", c:["1km","100m","10km"], e:"4×25000＝100000（cm）＝1000m＝1km。cm→m は÷100、m→km は÷1000。"},
+    {q:"実際の長さ500mを、縮尺 1：10000 の地図に表すと何cm？", c:["5cm","50cm","0.5cm"], e:"500m＝50000cm。50000÷10000＝5（cm）。先に単位をcmにそろえるのがコツです。"},
+    {q:"ある長方形の{1/3}の縮図をかくと、横が4cmになりました。もとの横の長さは？", c:["12cm","{4/3}cm","7cm"], e:"縮図はもとの{1/3}なので、もとの長さは 4×3＝12（cm）"},
+    {q:"縦2cm、横3cmの長方形の2倍の拡大図。面積はもとの何倍？", c:["4倍","2倍","8倍"], e:"拡大図は縦4cm、横6cmで面積24cm²。もとは6cm²なので4倍。縦も横も2倍になるからです。"},
+    {q:"1mの棒のかげが1.5mのとき、同じ時刻に木のかげが9mでした。木の高さは？", c:["6m","13.5m","7.5m"], e:"かげの長さは高さの1.5倍。木の高さは 9÷1.5＝6（m）。縮図の考え方で、見上げる物の高さがわかります。"}
+  ]},
+  { id:"en", stamp:"円", title:"円の面積", sub:"半径×半径×3.14・半円・おうぎ形", qs:[
+    {q:"円の面積を求める公式は？", c:["半径×半径×3.14","直径×3.14","半径×2×3.14"], e:"直径×3.14（＝半径×2×3.14）は「円周」の公式です。まちがえやすいので注意。"},
+    {q:"半径3cmの円の面積は？", c:["28.26cm²","18.84cm²","9.42cm²"], e:"3×3×3.14＝28.26（cm²）。18.84は円周の長さです。"},
+    {q:"直径8cmの円の面積は？", c:["50.24cm²","200.96cm²","25.12cm²"], e:"半径は4cm。4×4×3.14＝50.24（cm²）。直径のまま8×8をするとまちがいです。"},
+    {q:"半径6cmの半円の面積は？", c:["56.52cm²","113.04cm²","18.84cm²"], e:"円の面積の半分です。6×6×3.14÷2＝56.52（cm²）"},
+    {q:"半径4cmの円を4等分したおうぎ形（{1/4}の円）の面積は？", c:["12.56cm²","50.24cm²","6.28cm²"], e:"4×4×3.14÷4＝12.56（cm²）。6.28はまるい部分（弧）の長さです。"},
+    {q:"円の半径を2倍にすると、面積は何倍になる？", c:["4倍","2倍","3.14倍"], e:"半径×半径なので、2×2＝4倍になります。"},
+    {q:"円周が31.4cmの円の面積は？", c:["78.5cm²","314cm²","31.4cm²"], e:"直径＝31.4÷3.14＝10cm、半径は5cm。5×5×3.14＝78.5（cm²）"},
+    {q:"1辺10cmの正方形から、中にぴったり入る円を切り取りました。残りの面積は？", c:["21.5cm²","68.6cm²","78.5cm²"], e:"円の半径は5cm。100−5×5×3.14＝100−78.5＝21.5（cm²）"}
+  ]},
+  { id:"taiseki", stamp:"体積", title:"角柱と円柱の体積", sub:"底面積×高さ・およその面積と体積", qs:[
+    {q:"角柱や円柱の体積を求める公式は？", c:["底面積×高さ","底面積×高さ÷3","底面のまわりの長さ×高さ"], e:"柱の形は、底面が高さの分だけ積み重なったものと考えます。"},
+    {q:"底面積15cm²、高さ8cmの三角柱の体積は？", c:["120cm³","60cm³","23cm³"], e:"15×8＝120（cm³）"},
+    {q:"底面が「底辺6cm・高さ4cm」の三角形で、高さが5cmの三角柱の体積は？", c:["60cm³","120cm³","240cm³"], e:"底面積＝6×4÷2＝12cm²。体積は 12×5＝60（cm³）。÷2をわすれると120になります。"},
+    {q:"底面の半径3cm、高さ10cmの円柱の体積は？", c:["282.6cm³","94.2cm³","1130.4cm³"], e:"底面積＝3×3×3.14＝28.26cm²。28.26×10＝282.6（cm³）"},
+    {q:"底面の直径4cm、高さ5cmの円柱の体積は？", c:["62.8cm³","251.2cm³","31.4cm³"], e:"半径は2cm。2×2×3.14×5＝62.8（cm³）"},
+    {q:"1Lは何cm³？", c:["1000cm³","100cm³","10cm³"], e:"1辺10cmの立方体の体積が1L。10×10×10＝1000（cm³）"},
+    {q:"底面積20cm²、体積140cm³の四角柱の高さは？", c:["7cm","2800cm","120cm"], e:"高さ＝体積÷底面積。140÷20＝7（cm）"},
+    {q:"ある公園は、ほぼ台形（上底40m、下底60m、高さ30m）の形です。およその面積は？", c:["1500m²","3000m²","72000m²"], e:"身近な形を図形とみて計算します。（40＋60）×30÷2＝1500（m²）"}
+  ]},
+  { id:"hirei", stamp:"比例", title:"比例と反比例", sub:"式・グラフ・比例の利用", qs:[
+    {q:"y が x に比例するとき、x が3倍になると y はどうなる？", c:["3倍になる","{1/3}倍になる","変わらない"], e:"比例は「一方が2倍、3倍…になると、もう一方も2倍、3倍…になる」関係です。"},
+    {q:"y が x に比例しているのはどれ？", c:["1m80円のリボンを x m買ったときの代金 y 円","面積24cm²の長方形の縦 x cmと横 y cm","100ページの本を x ページ読んだときの残り y ページ"], e:"y＝80×x の形。長方形の縦と横は反比例、残りのページは比例でも反比例でもありません。"},
+    {q:"y＝4×x で、x＝7 のとき y の値は？", c:["28","11","{7/4}"], e:"x に7を入れて 4×7＝28"},
+    {q:"y が x に反比例し、x＝2 のとき y＝12 です。x＝6 のときの y は？", c:["4","36","8"], e:"反比例は x×y が一定。2×12＝24 なので、y＝24÷6＝4"},
+    {q:"反比例の関係を表す式の形は？", c:["y＝決まった数÷x","y＝決まった数×x","y＝決まった数＋x"], e:"比例は y＝決まった数×x、反比例は y＝決まった数÷x です。"},
+    {q:"比例のグラフの特ちょうは？", c:["0の点を通る直線になる","0の点を通らない曲線になる","横の軸に平行な直線になる"], e:"比例のグラフは0の点（原点）を通る直線。反比例のグラフは曲線になります。"},
+    {q:"はり金5mの重さが150gです。同じはり金12mの重さは？", c:["360g","1800g","300g"], e:"長さと重さは比例。1mは 150÷5＝30g。12mは 30×12＝360（g）"},
+    {q:"時速60kmで走ると2時間かかる道のり。時速40kmでは何時間かかる？", c:["3時間","1時間20分","4時間"], e:"道のりは 60×2＝120km。速さとかかる時間は反比例です。120÷40＝3（時間）"}
+  ]},
+  { id:"baai", stamp:"場合", title:"並べ方と組み合わせ方", sub:"樹形図・表で数える", qs:[
+    {q:"A、B、Cの3人が1列に並びます。並び方は何通り？", c:["6通り","3通り","9通り"], e:"先頭が3通り、2番目が2通り、最後が1通り。3×2×1＝6（通り）。樹形図で確かめましょう。"},
+    {q:"1・2・3・4のカードから2まい選んで2けたの整数をつくります。何通り？", c:["12通り","6通り","16通り"], e:"十の位が4通り、一の位は残りの3通り。4×3＝12（通り）"},
+    {q:"4チームが、どのチームとも1回ずつ試合をします。全部で何試合？", c:["6試合","12試合","4試合"], e:"A対BとB対Aは同じ試合。表にかいて、重なりを消すと6試合です。"},
+    {q:"5人の中から、そうじ当番を2人選びます。選び方は何通り？", c:["10通り","20通り","25通り"], e:"並べ方なら5×4＝20通りですが、選ぶだけなので順番は関係なし。20÷2＝10（通り）"},
+    {q:"コインを3回投げます。表と裏の出方は全部で何通り？", c:["8通り","6通り","3通り"], e:"1回ごとに2通りずつ。2×2×2＝8（通り）"},
+    {q:"0・1・2のカード3まいを全部使って、3けたの整数をつくります。何通り？", c:["4通り","6通り","3通り"], e:"百の位に0は使えません。百の位は1か2の2通り、残りの並べ方が2通りで、2×2＝4（通り）"},
+    {q:"4人でリレーをします。走る順番の決め方は何通り？", c:["24通り","16通り","12通り"], e:"1番目4通り、2番目3通り、3番目2通り、4番目1通り。4×3×2×1＝24（通り）"},
+    {q:"シャツ3まいとズボン2本から、1つずつ選んで着ます。組み合わせは何通り？", c:["6通り","5通り","9通り"], e:"シャツそれぞれにズボンが2通り。3×2＝6（通り）。たしてしまうと5になります。"}
+  ]},
+  { id:"data", stamp:"データ", title:"データの調べ方", sub:"平均値・中央値・最頻値・ヒストグラム", qs:[
+    {q:"6人の小テストの点数：2、5、5、6、8、10（点）。平均値は？", c:["6点","5点","5.5点"], e:"合計÷人数。（2＋5＋5＋6＋8＋10）÷6＝36÷6＝6（点）"},
+    {q:"6人の小テストの点数：2、5、5、6、8、10（点）。中央値は？", c:["5.5点","5点","6点"], e:"データが偶数個のときは、真ん中の2つの平均。（5＋6）÷2＝5.5（点）"},
+    {q:"6人の小テストの点数：2、5、5、6、8、10（点）。最頻値は？", c:["5点","6点","10点"], e:"いちばん多く出てくる値が最頻値。5点が2人でいちばん多いです。"},
+    {q:"データを大きさの順に並べたとき、真ん中にくる値を何という？", c:["中央値","平均値","最頻値"], e:"中央値はメジアン、最頻値はモードともいいます。どれもデータの特ちょうを表す代表値です。"},
+    {q:"「0点以上10点未満」のように区切った区間を何という？", c:["階級","度数","範囲"], e:"区間を階級、そこに入るデータの個数を度数といいます。"},
+    {q:"階級ごとの度数を表にまとめたものを何という？", c:["度数分布表","二次元表","時間割表"], e:"度数分布表を柱の形のグラフにしたものが、ヒストグラムです。"},
+    {q:"度数分布を、すき間のない柱の形で表したグラフは？", c:["ヒストグラム（柱状グラフ）","折れ線グラフ","円グラフ"], e:"横の軸が階級、縦の軸が度数。データの散らばり方がひと目でわかります。"},
+    {q:"5人の平均点が70点でした。5人の合計点は？", c:["350点","75点","14点"], e:"合計＝平均×人数。70×5＝350（点）"}
+  ]}
+];
+
+// ===== せきせんせいのことば =====
+const SAY = {
+  ok:["見事じゃ！","その調子じゃ。","よう分かっておるのう。","すばらしい。わしもうれしいぞ。"],
+  ng:["おしい！解き方をいっしょに見よう。","まちがいは宝じゃ。ここを覚えれば強くなる。","あわてずに、もう一度式を見てみよう。"],
+  dk:["正直でよろしい。ここで覚えればよいのじゃ。","「わからない」を選べるのも力のうちじゃ。"],
+  tips:[
+    "わしは江戸時代の和算家・<b>関孝和</b>じゃ。「算聖」とよばれておる。",
+    "江戸のころは、算木という棒を並べて計算したのじゃ。",
+    "わしは円周率を、小数第10位まで正しく計算したぞ。",
+    "江戸の人は、解けた問題を絵馬にして神社に奉納した。これを<b>算額</b>という。",
+    "わからない問題は「わからない」を選んでよい。そこが一番の伸びしろじゃ。",
+    "まちがえた問題は「復習」でもう一度。くり返すほど身につくぞ。"
+  ]
+};
+const pick = a => a[Math.floor(Math.random() * a.length)];
+
+// ===== せきせんせい（オリジナルのちびキャラ） =====
+function seki(mood, size){
+  let eyes, mouth, extra = "";
+  if (mood === "happy"){
+    eyes = `<path d="M40 64 Q46 57 52 64" fill="none" stroke="var(--hair)" stroke-width="3" stroke-linecap="round"/>
+            <path d="M68 64 Q74 57 80 64" fill="none" stroke="var(--hair)" stroke-width="3" stroke-linecap="round"/>`;
+    mouth = `<path d="M52 76 Q60 86 68 76 Z" fill="#B5473F"/>`;
+    extra = `<text x="100" y="34" font-size="16" fill="var(--red)">✦</text><text x="10" y="44" font-size="11" fill="var(--blue)">✦</text>`;
+  } else if (mood === "think"){
+    eyes = `<ellipse cx="46" cy="64" rx="3.4" ry="4.4" fill="var(--hair)"/><ellipse cx="74" cy="64" rx="3.4" ry="4.4" fill="var(--hair)"/>
+            <circle cx="47.2" cy="62.4" r="1.2" fill="#fff"/><circle cx="75.2" cy="62.4" r="1.2" fill="#fff"/>`;
+    mouth = `<path d="M53 79 q3.5 -3 7 0 t7 0" fill="none" stroke="var(--hair)" stroke-width="2.2" stroke-linecap="round"/>`;
+    extra = `<path d="M94 50 q4 7 0 10 q-4 -3 0 -10 Z" fill="#8EC5F0" stroke="#5C9BD1" stroke-width="1"/>`;
+  } else {
+    eyes = `<ellipse cx="46" cy="64" rx="3.6" ry="4.6" fill="var(--hair)"/><ellipse cx="74" cy="64" rx="3.6" ry="4.6" fill="var(--hair)"/>
+            <circle cx="47.3" cy="62.2" r="1.3" fill="#fff"/><circle cx="75.3" cy="62.2" r="1.3" fill="#fff"/>`;
+    mouth = `<path d="M54 76 Q60 81 66 76" fill="none" stroke="var(--hair)" stroke-width="2.4" stroke-linecap="round"/>`;
+  }
+  return `<svg class="seki" width="${size}" height="${size * 140 / 120}" viewBox="0 0 120 140" role="img" aria-label="せきせんせい">
+    ${extra}
+    <!-- 着物 -->
+    <path d="M26 140 Q28 104 44 96 L76 96 Q92 104 94 140 Z" fill="var(--kimono)"/>
+    <path d="M48 96 L60 118 L72 96" fill="none" stroke="#F7F2E8" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M44 96 L60 124 L76 96" fill="none" stroke="#1A2F52" stroke-width="1.5"/>
+    <circle cx="36" cy="116" r="4" fill="none" stroke="#F7F2E8" stroke-width="1.4"/>
+    <circle cx="84" cy="116" r="4" fill="none" stroke="#F7F2E8" stroke-width="1.4"/>
+    <!-- そろばん -->
+    <rect x="38" y="118" width="44" height="17" rx="2.5" fill="#8A5A33" stroke="#5B3A1F" stroke-width="1.5"/>
+    <line x1="40" y1="123.5" x2="80" y2="123.5" stroke="#5B3A1F" stroke-width="1.2"/>
+    ${[44,51,58,65,72,79].map((x,i)=>`<line x1="${x-1}" y1="119" x2="${x-1}" y2="134" stroke="#5B3A1F" stroke-width=".8"/><ellipse cx="${x-1}" cy="${i%2?121:121}" rx="2.6" ry="1.6" fill="#F0D9B5"/><ellipse cx="${x-1}" cy="${127+(i%3)}" rx="2.6" ry="1.6" fill="#F0D9B5"/>`).join("")}
+    <circle cx="38" cy="124" r="5" fill="var(--skin)" stroke="#C99A7A" stroke-width="1"/>
+    <circle cx="82" cy="124" r="5" fill="var(--skin)" stroke="#C99A7A" stroke-width="1"/>
+    <!-- 頭 -->
+    <ellipse cx="60" cy="62" rx="38" ry="34" fill="var(--skin)" stroke="#C99A7A" stroke-width="1.2"/>
+    <!-- 横と後ろのかみ -->
+    <path d="M23 66 Q20 40 34 32 Q30 46 31 60 Z" fill="var(--hair)"/>
+    <path d="M97 66 Q100 40 86 32 Q90 46 89 60 Z" fill="var(--hair)"/>
+    <!-- さかやき（そったところ） -->
+    <path d="M34 34 Q60 22 86 34 Q74 30 60 30 Q46 30 34 34 Z" fill="#E9CDB6"/>
+    <!-- ちょんまげ -->
+    <rect x="49" y="16" width="22" height="10" rx="5" fill="var(--hair)"/>
+    <rect x="57" y="15" width="4" height="12" rx="1" fill="var(--red)"/>
+    <path d="M60 26 L60 31" stroke="var(--hair)" stroke-width="4" stroke-linecap="round"/>
+    <!-- まゆ -->
+    <path d="M40 52 Q46 48 52 51" fill="none" stroke="var(--hair)" stroke-width="3.2" stroke-linecap="round"/>
+    <path d="M68 51 Q74 48 80 52" fill="none" stroke="var(--hair)" stroke-width="3.2" stroke-linecap="round"/>
+    ${eyes}
+    <ellipse cx="38" cy="74" rx="6" ry="3.6" fill="var(--cheek)" opacity=".75"/>
+    <ellipse cx="82" cy="74" rx="6" ry="3.6" fill="var(--cheek)" opacity=".75"/>
+    ${mouth}
+  </svg>`;
+}
+
+// ===== 保存（この端末のブラウザ） =====
+const KEY = "sho6-sansu-seki-v1";
+let store = {};
+try { store = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch(e) { store = {}; }
+function persist(){ try { localStorage.setItem(KEY, JSON.stringify(store)); } catch(e) {} }
+const blank = () => ({best:null, last:null, attempts:0, history:[], weak:[]});
+function rec(uid){ store[uid] = store[uid] || blank(); return store[uid]; }
+function peek(uid){ return store[uid] || blank(); }
+
+function level(score, total){
+  if (score == null) return 0;
+  if (score >= total) return 3;
+  if (score / total >= 0.75) return 2;
+  if (score / total >= 0.5) return 1;
+  return 0;
+}
+const RANKS = [[0,"入門"],[6,"初伝"],[14,"中伝"],[24,"奥伝"],[33,"免許皆伝"]];
+function rankOf(stars){ let r = RANKS[0][1]; RANKS.forEach(([n, name]) => { if (stars >= n) r = name; }); return r; }
+function nextRank(stars){ const n = RANKS.find(([k]) => k > stars); return n ? {need:n[0] - stars, name:n[1]} : null; }
+
+// ===== スタンプ（判子） =====
+function stampSVG(label, lv, size){
+  const color = lv === 3 ? "var(--red)" : lv >= 1 ? "var(--blue)" : "var(--gray)";
+  const op = lv === 1 ? 0.55 : 1;
+  const dash = lv === 0 ? 'stroke-dasharray="4 4"' : "";
+  const fs = label.length >= 3 ? 14 : label.length === 2 ? 18 : 24;
+  let stars = "";
+  for (let i = 0; i < 3; i++){
+    const x = 26 + i * 14, filled = i < lv;
+    stars += `<text x="${x}" y="61" font-size="9" text-anchor="middle" fill="${filled ? color : "none"}" stroke="${color}" stroke-width="${filled ? 0 : .8}">★</text>`;
+  }
+  return `<svg class="stamp" width="${size}" height="${size}" viewBox="0 0 80 80" aria-hidden="true">
+    <g opacity="${op}">
+      <circle cx="40" cy="40" r="36" fill="none" stroke="${color}" stroke-width="${lv ? 3 : 1.5}" ${dash}/>
+      ${lv ? `<circle cx="40" cy="40" r="30" fill="none" stroke="${color}" stroke-width="1.2"/>` : ""}
+      <text x="40" y="${lv ? 44 : 47}" font-size="${fs}" text-anchor="middle" fill="${lv ? color : "var(--gray)"}">${label}</text>
+      ${lv ? stars : ""}
+    </g></svg>`;
+}
+
+// ===== 共通 =====
+const app = document.getElementById("app");
+let quiz = null;
+function esc(s){ const d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
+function fmt(s){ return esc(s).replace(/\{([^{}\/]+)\/([^{}\/]+)\}/g, '<span class="fr"><span>$1</span><span>$2</span></span>'); }
+function shuffle(a){ a = a.slice(); for (let i = a.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+const unitById = id => UNITS.find(u => u.id === id);
+const reduceMotion = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// ===== ホーム =====
+function renderHome(){
+  quiz = null;
+  let stars = 0, stamps = 0, weakTotal = 0;
+  UNITS.forEach(u => { const r = peek(u.id); const lv = level(r.best, u.qs.length); stars += lv; if (lv) stamps++; weakTotal += r.weak.length; });
+  const nr = nextRank(stars);
+  const tip = stars === 0 && !weakTotal
+    ? "ようこそ、わしの算数道場へ。まずは<b>腕だめし</b>で、どの単元が得意か調べてみよう。"
+    : weakTotal ? `復習の問題が <b>${weakTotal}問</b> あるぞ。赤い字の単元から手をつけるとよい。` : pick(SAY.tips);
+  const rows = UNITS.map((u, n) => {
+    const r = peek(u.id), lv = level(r.best, u.qs.length);
+    let meta = r.attempts ? `最高 ${r.best}/${u.qs.length}問　${r.attempts}回ちょうせん` : "まだちょうせんしていません";
+    if (r.weak.length) meta += `　<span class="weak">復習 ${r.weak.length}問</span>`;
+    return `<li><button class="unit" data-unit="${u.id}">
+      ${stampSVG(u.stamp, lv, 60)}
+      <div><h3><span class="no">${n + 1}</span>${esc(u.title)}</h3><div class="sub">${esc(u.sub)}</div><div class="meta">${meta}</div></div>
+    </button></li>`;
+  }).join("");
+  app.innerHTML = `
+    <header class="gaku">
+      <svg class="roof" viewBox="0 0 400 22" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 22 L24 2 L376 2 L400 22 Z" fill="var(--wood-edge)"/>
+        <path d="M14 22 L30 8 L370 8 L386 22 Z" fill="var(--wood)" opacity=".35"/>
+      </svg>
+      <div class="board">
+        <p class="kicker">小6算数 習熟度チェック</p>
+        <h1>せきせんせいの算数道場</h1>
+        <div class="row">
+          ${seki(stars ? "happy" : "normal", 92)}
+          <div class="bubble">${tip}</div>
+        </div>
+        <div class="rank">
+          <div class="dan">${rankOf(stars)}</div>
+          <div><b>${stars}</b><span> / ${UNITS.length * 3} ★</span></div>
+          <div><b>${stamps}</b><span> / ${UNITS.length} 判子</span></div>
+          ${nr ? `<span>あと★${nr.need}で「${nr.name}」</span>` : ""}
+        </div>
+      </div>
+    </header>
+    <button class="trial" id="trial">
+      <span class="ic">試</span>
+      <span><h2>腕だめし（全単元から1問ずつ・${UNITS.length}問）</h2><p>苦手な単元を見つけて、そこから練習しよう</p></span>
+    </button>
+    <p class="sec">単元ごとに8問</p>
+    <ul class="units">${rows}</ul>
+    <section class="legend">
+      <div class="row">
+        <div>${stampSVG("4問", 1, 40)}4問以上</div>
+        <div>${stampSVG("6問", 2, 40)}6問以上</div>
+        <div>${stampSVG("満点", 3, 40)}全問正解</div>
+      </div>
+      <div style="margin-top:8px">★の合計で段位が上がります：入門 → 初伝（6）→ 中伝（14）→ 奥伝（24）→ 免許皆伝（33）</div>
+    </section>
+    <div class="foot"><span>記録はこの端末のブラウザに保存されます。</span><button class="linkbtn" id="reset">記録を消す</button></div>
+    <div id="confirmArea"></div>`;
+  app.querySelectorAll(".unit").forEach(b => b.onclick = () => startQuiz(b.dataset.unit, "full"));
+  document.getElementById("trial").onclick = startTrial;
+  document.getElementById("reset").onclick = () => {
+    document.getElementById("confirmArea").innerHTML = `<div class="confirm">算数の記録をすべて消します。よろしいですか？
+      <div class="btns"><button id="cNo">やめる</button><button class="danger" id="cYes">消す</button></div></div>`;
+    document.getElementById("cNo").onclick = () => document.getElementById("confirmArea").innerHTML = "";
+    document.getElementById("cYes").onclick = () => { store = {}; persist(); renderHome(); };
+  };
+  window.scrollTo(0, 0);
+}
+
+// ===== 出題 =====
+function startQuiz(uid, mode){
+  const unit = unitById(uid), r = peek(uid);
+  const ids = mode === "review" ? r.weak.slice() : unit.qs.map((_, i) => i);
+  quiz = { mode, uid, unit, items: shuffle(ids).map(qi => ({ uid, qi })), i: 0, answers: [], prevBest: r.best, prevLast: r.last };
+  renderQuestion();
+}
+function startTrial(){
+  const items = UNITS.map(u => ({ uid: u.id, qi: Math.floor(Math.random() * u.qs.length) }));
+  quiz = { mode: "trial", items, i: 0, answers: [] };
+  renderQuestion();
+}
+
+function renderQuestion(){
+  const { items, i, mode } = quiz;
+  const it = items[i], unit = unitById(it.uid), q = unit.qs[it.qi];
+  const opts = shuffle(q.c.map((t, k) => ({ t, ok: k === 0 })));
+  quiz.opts = opts;
+  const label = mode === "review" ? "復習　" : mode === "trial" ? "腕だめし　" : "";
+  app.innerHTML = `
+    <div class="qtop"><button class="back" id="quit">やめる</button><span class="count">${label}${i + 1} / ${items.length}</span></div>
+    <div id="quitArea"></div>
+    <div class="bar"><i style="width:${(i / items.length) * 100}%"></i></div>
+    <p class="unitname">${esc(unit.title)}</p>
+    <p class="question">${fmt(q.q)}</p>
+    <div class="choices">
+      ${opts.map((o, k) => `<button class="choice" data-k="${k}"><span class="k">${"アイウ"[k]}</span><span>${fmt(o.t)}</span></button>`).join("")}
+      <button class="choice dk" data-k="dk"><span class="k">？</span><span>わからない</span></button>
+    </div>
+    <div id="fb"></div>`;
+  document.getElementById("quit").onclick = () => {
+    if (!quiz.answers.length) return renderHome();
+    document.getElementById("quitArea").innerHTML = `<div class="confirm quitbox">ここまでの答えは記録されません。やめますか？
+      <div class="btns"><button id="qNo">つづける</button><button class="danger" id="qYes">やめる</button></div></div>`;
+    document.getElementById("qNo").onclick = () => document.getElementById("quitArea").innerHTML = "";
+    document.getElementById("qYes").onclick = renderHome;
+  };
+  app.querySelectorAll(".choice").forEach(b => b.onclick = () => answer(b.dataset.k));
+  window.scrollTo(0, 0);
+}
+
+function answer(k){
+  const { items, i } = quiz;
+  const it = items[i], q = unitById(it.uid).qs[it.qi];
+  const btns = app.querySelectorAll(".choice");
+  btns.forEach(b => {
+    b.disabled = true;
+    const bk = b.dataset.k;
+    if (bk === "dk") return;
+    const o = quiz.opts[+bk];
+    if (o.ok) b.classList.add("correct");
+    else if (bk === k) b.classList.add("wrong");
+    else b.classList.add("faded");
+  });
+  let result;
+  if (k === "dk") { result = "dk"; app.querySelector(".choice.dk").classList.add("picked-dk"); }
+  else { result = quiz.opts[+k].ok ? "ok" : "ng"; app.querySelector(".choice.dk").classList.add("faded"); }
+  quiz.answers.push({ ...it, result });
+
+  const head = result === "ok" ? "正解！" : result === "ng" ? `正解は「${fmt(q.c[0])}」` : `正解は「${fmt(q.c[0])}」。ここで覚えよう`;
+  const mood = result === "ok" ? "happy" : "think";
+  const last = i === items.length - 1;
+  document.getElementById("fb").innerHTML = `
+    <div class="fbwrap">
+      <div class="${result === "ok" && !reduceMotion() ? "hop" : ""}">${seki(mood, 64)}</div>
+      <div class="feedback ${result}"><p class="say">${pick(SAY[result])}</p><h3>${head}</h3><p class="e">${fmt(q.e)}</p></div>
+    </div>
+    <button class="primary" id="next">${last ? "結果を見る" : "次の問題へ"}</button>`;
+  const nx = document.getElementById("next");
+  nx.onclick = () => { if (last) finish(); else { quiz.i++; renderQuestion(); } };
+  nx.focus({ preventScroll: true });
+  document.getElementById("fb").scrollIntoView({ behavior: reduceMotion() ? "auto" : "smooth", block: "nearest" });
+}
+
+// ===== 結果 =====
+function finish(){
+  if (quiz.mode === "trial") return finishTrial();
+  const { unit, uid, mode, answers, prevBest, prevLast } = quiz;
+  const total = unit.qs.length;
+  const ok = answers.filter(a => a.result === "ok").length;
+  const ng = answers.filter(a => a.result === "ng").length;
+  const dk = answers.filter(a => a.result === "dk").length;
+  const r = rec(uid);
+  const msgs = [];
+  let newStamp = false, lvNow;
+
+  if (mode === "full") {
+    r.attempts++;
+    r.last = ok;
+    r.best = r.best == null ? ok : Math.max(r.best, ok);
+    r.history.push({ d: Date.now(), ok, dk });
+    if (r.history.length > 20) r.history.shift();
+    r.weak = answers.filter(a => a.result !== "ok").map(a => a.qi);
+    lvNow = level(r.best, total);
+    newStamp = lvNow > level(prevBest, total);
+    if (ok === total) msgs.push("全問正解じゃ。この単元はしっかり身についておる。");
+    else if (prevLast != null && ok > prevLast) msgs.push(`前回より ${ok - prevLast}問 多く正解した。のびておるぞ。`);
+    else if (prevLast != null && ok === prevLast) msgs.push("前回と同じ点数じゃ。復習した問題がふえるほど、次は上がる。");
+    else if (prevLast == null) msgs.push("はじめてのちょうせん、おつかれさま。今の力がよく分かった。");
+    else msgs.push("今回は前回より少なめ。忘れかけていた所が見つかったということじゃ。");
+    if (newStamp) msgs.push(lvNow === 3 ? "朱の判子をさずけよう。" : lvNow === 2 ? "判子がこい藍色になったぞ。" : "判子をさずけよう。");
+    else if (lvNow < 3) { const need = lvNow === 0 ? Math.ceil(total * .5) : lvNow === 1 ? Math.ceil(total * .75) : total; msgs.push(`あと ${need - r.best}問 正解で、次の判子じゃ。`); }
+  } else {
+    const fixed = answers.filter(a => a.result === "ok").map(a => a.qi);
+    r.weak = r.weak.filter(x => !fixed.includes(x));
+    lvNow = level(r.best, total);
+    msgs.push(fixed.length ? `復習で ${fixed.length}問 正解できるようになった。` : "もう一度、解き方を読んでからちょうせんしてみよう。");
+    if (!r.weak.length) msgs.push("復習リストが空になった。8問でもう一度ためすと、判子が上がるかもしれんぞ。");
+  }
+  if (dk) msgs.push(`「わからない」は${dk}問。正直に選べたので、次に覚える場所がはっきりしたのう。`);
+  persist();
+
+  const hist = mode === "full" ? r.history.slice(-8) : [];
+  const histHTML = hist.length > 1
+    ? `<div class="history">${hist.map((h, k) => `<i class="${k === hist.length - 1 ? "last" : ""}" style="height:${Math.max(4, h.ok / total * 52)}px" title="${h.ok}問"></i>`).join("")}</div><div class="hcap">これまでの正解数（右が今回）</div>`
+    : "";
+  const mood = ok >= answers.length * 0.75 ? "happy" : ok >= answers.length * 0.5 ? "normal" : "think";
+
+  app.innerHTML = `
+    <div class="result">
+      <p class="unitname">${esc(unit.title)}${mode === "review" ? "（復習）" : ""}</p>
+      <div class="${newStamp && !reduceMotion() ? "press" : "tilt"}" style="display:inline-block">${stampSVG(unit.stamp, lvNow, 120)}</div>
+      ${newStamp ? `<div><span class="newbadge">新しい判子</span></div>` : ""}
+      <div class="score">${ok}<small> / ${answers.length}</small></div>
+      <div class="breakdown"><span class="o">正解 ${ok}</span><span class="x">まちがい ${ng}</span><span class="d">わからない ${dk}</span></div>
+      ${histHTML}
+      <div class="talk">${seki(mood, 70)}<div class="msgs">${msgs.map(m => `<p>${esc(m)}</p>`).join("")}</div></div>
+      ${r.weak.length ? `<button class="secondary redline" id="rev">まちがえた・わからない問題を復習（${r.weak.length}問）</button>` : ""}
+      <button class="secondary" id="again">8問すべてもう一度</button>
+      <button class="primary" id="home">単元一覧へ</button>
+    </div>`;
+  const rv = document.getElementById("rev"); if (rv) rv.onclick = () => startQuiz(uid, "review");
+  document.getElementById("again").onclick = () => startQuiz(uid, "full");
+  document.getElementById("home").onclick = renderHome;
+  window.scrollTo(0, 0);
+}
+
+function finishTrial(){
+  const { answers } = quiz;
+  const ok = answers.filter(a => a.result === "ok").length;
+  const ng = answers.filter(a => a.result === "ng").length;
+  const dk = answers.filter(a => a.result === "dk").length;
+  // まちがえた問題は、その単元の復習リストに加える
+  answers.forEach(a => { if (a.result !== "ok") { const r = rec(a.uid); if (!r.weak.includes(a.qi)) r.weak.push(a.qi); } });
+  persist();
+  const miss = answers.filter(a => a.result !== "ok");
+  const msgs = [];
+  if (!miss.length) msgs.push("全単元で正解じゃ！ 各単元の8問で、判子を集めていこう。");
+  else {
+    msgs.push(`${miss.length}つの単元で、つまずきが見つかった。`);
+    msgs.push(`まずは「${unitById(miss[0].uid).title}」から練習するとよい。まちがえた問題は復習リストに入れておいたぞ。`);
+  }
+  const map = answers.map(a => {
+    const u = unitById(a.uid);
+    const mk = a.result === "ok" ? `<span class="mk o">○</span>` : a.result === "ng" ? `<span class="mk x">×</span>` : `<span class="mk d">？</span>`;
+    return `<li>${mk}<span class="nm">${esc(u.title)}</span>${a.result !== "ok" ? `<button data-go="${u.id}">練習</button>` : ""}</li>`;
+  }).join("");
+  app.innerHTML = `
+    <div class="result">
+      <p class="unitname">腕だめしの結果</p>
+      <div class="score">${ok}<small> / ${answers.length}</small></div>
+      <div class="breakdown"><span class="o">正解 ${ok}</span><span class="x">まちがい ${ng}</span><span class="d">わからない ${dk}</span></div>
+      <div class="talk">${seki(ok >= answers.length * 0.75 ? "happy" : "think", 70)}<div class="msgs">${msgs.map(m => `<p>${esc(m)}</p>`).join("")}</div></div>
+      <ul class="trialmap">${map}</ul>
+      <button class="secondary" id="again">もう一度 腕だめし</button>
+      <button class="primary" id="home">単元一覧へ</button>
+    </div>`;
+  app.querySelectorAll("[data-go]").forEach(b => b.onclick = () => startQuiz(b.dataset.go, "full"));
+  document.getElementById("again").onclick = startTrial;
+  document.getElementById("home").onclick = renderHome;
+  window.scrollTo(0, 0);
+}
+
+renderHome();
+</script>
+<script>
+// ネットなしでも動かすための仕組み（サービスワーカー）を登録
+if ("serviceWorker" in navigator) {
+  addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
+}
+</script>
+</body>
+</html>
